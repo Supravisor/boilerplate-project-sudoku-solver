@@ -9,6 +9,10 @@ module.exports = function (app) {
   app.route('/api/check')
     .post((req, res) => {
 
+      if (/[^1-9.]/.test(puzzle)) {
+        return res.json({ error: 'Invalid characters in puzzle' });
+      }
+
     });
     
   app.route('/api/solve')
@@ -16,7 +20,9 @@ module.exports = function (app) {
 
       const { puzzle } = req.body;
 
-      if (solver.validate(puzzle)) return res.json(solver.validate(puzzle));
+      if (solver.validate(puzzle)) {
+        return res.json(solver.validate(puzzle));
+      }
 
     });
 };
