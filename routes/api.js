@@ -14,5 +14,9 @@ module.exports = function (app) {
   app.route('/api/solve')
     .post((req, res) => {
 
+      const { puzzle } = req.body;
+
+      if (solver.validate(puzzle)) return res.json(solver.validate(puzzle));
+
     });
 };
