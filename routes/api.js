@@ -9,8 +9,10 @@ module.exports = function (app) {
   app.route('/api/check')
     .post((req, res) => {
 
-      if (/[^1-9.]/.test(puzzle)) {
-        return res.json({ error: 'Invalid characters in puzzle' });
+      const { puzzle, coordinate, value } = req.body;
+
+      if (!puzzle || !coordinate || !value) {
+        return res.json({ error: 'Required field(s) missing' });
       }
 
     });
