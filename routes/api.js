@@ -27,6 +27,20 @@ module.exports = function (app) {
         return res.json({ error: 'Expected puzzle to be 81 characters long' });
       }
 
+      const row = coordinate.charCodeAt(0) - 'A'.charCodeAt(0);
+      const col = parseInt(coordinate[1]) - 1;
+
+      if (puzzle[row * 9 + col] == value) {
+        return res.json({ valid: true });
+      }
+
+      let conflicts = [];
+      if (!solver.checkRowPlacement(puzzle, row, col, value)) conflicts.push('row');
+      if (!solver.checkColPlacement(puzzle, row, col, value)) conflicts.push('column');
+      if (!solver.checkRegionPlacement(puzzle, row, col, value)) conflicts.push('region');
+
+      return res.json({ valid: false, conflict: conflicts });
+
     });
     
   app.route('/api/solve')
