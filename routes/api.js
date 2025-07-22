@@ -15,6 +15,10 @@ module.exports = function (app) {
         return res.json({ error: 'Required field(s) missing' });
       }
 
+      if (!/^[A-I][1-9]$/.test(coordinate)) {
+        return res.json({ error: 'Invalid coordinate' });
+      }
+
     });
     
   app.route('/api/solve')
