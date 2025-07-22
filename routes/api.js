@@ -23,6 +23,10 @@ module.exports = function (app) {
         return res.json({ error: 'Invalid value' });
       }
 
+      if (puzzle.length !== 81) {
+        return res.json({ error: 'Expected puzzle to be 81 characters long' });
+      }
+
     });
     
   app.route('/api/solve')
