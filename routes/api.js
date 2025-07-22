@@ -27,6 +27,10 @@ module.exports = function (app) {
         return res.json({ error: 'Expected puzzle to be 81 characters long' });
       }
 
+      if (/[^1-9.]/.test(puzzle)) {
+        return res.json({ error: 'Invalid characters in puzzle' });
+      }
+
       const row = coordinate.charCodeAt(0) - 'A'.charCodeAt(0);
       const col = parseInt(coordinate[1]) - 1;
 
