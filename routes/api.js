@@ -19,6 +19,10 @@ module.exports = function (app) {
         return res.json({ error: 'Invalid coordinate' });
       }
 
+      if (!/^[1-9]$/.test(value)) {
+        return res.json({ error: 'Invalid value' });
+      }
+
     });
     
   app.route('/api/solve')
