@@ -56,5 +56,7 @@ module.exports = function (app) {
         return res.json(solver.validate(puzzle));
       }
 
+      return res.json(solver.solve(puzzle));
+
     });
 };
