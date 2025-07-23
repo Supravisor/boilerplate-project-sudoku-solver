@@ -18,7 +18,12 @@ class SudokuSolver {
   }
 
   checkRowPlacement(puzzleString, row, column, value) {
-
+    for (let c = 0; c < 9; c++) {
+      if (c !== column && puzzleString[row * 9 + c] === value) {
+        return false;
+      }
+    }
+    return true;
   }
 
   checkColPlacement(puzzleString, row, column, value) {
