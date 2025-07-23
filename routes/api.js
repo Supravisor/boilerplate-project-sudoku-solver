@@ -43,7 +43,7 @@ module.exports = function (app) {
       if (!solver.checkColPlacement(puzzle, row, col, value)) conflicts.push('column');
       if (!solver.checkRegionPlacement(puzzle, row, col, value)) conflicts.push('region');
 
-      return res.json({ valid: false, conflict: conflicts });
+      return res.json(conflicts.length ? { valid: false, conflict: conflicts } : { valid: true });
 
     });
     
