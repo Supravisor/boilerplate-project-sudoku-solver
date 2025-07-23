@@ -36,7 +36,16 @@ class SudokuSolver {
   }
 
   checkRegionPlacement(puzzleString, row, column, value) {
-
+    const startRow = Math.floor(row / 3) * 3;
+    const startCol = Math.floor(column / 3) * 3;
+    for (let r = startRow; r < startRow + 3; r++) {
+      for (let c = startCol; c < startCol + 3; c++) {
+        if ((r !== row || c !== column) && puzzleString[r * 9 + c] === value) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   solve(puzzleString) {
