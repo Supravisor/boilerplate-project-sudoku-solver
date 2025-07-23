@@ -27,7 +27,12 @@ class SudokuSolver {
   }
 
   checkColPlacement(puzzleString, row, column, value) {
-
+    for (let r = 0; r < 9; r++) {
+      if (r !== row && puzzleString[r * 9 + column] === value) {
+        return false;
+      }
+    }
+    return true;
   }
 
   checkRegionPlacement(puzzleString, row, column, value) {
