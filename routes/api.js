@@ -56,7 +56,13 @@ module.exports = function (app) {
         return res.json(solver.validate(puzzle));
       }
 
-      return res.json(solver.solve(puzzle));
+      const solution = solver.solve(puzzle);
+
+      if (solution === 'Puzzle cannot be solved') {
+        return res.json({ error: solution });
+      } else {
+          return res.json({solution: solution});
+      }
 
     });
 };

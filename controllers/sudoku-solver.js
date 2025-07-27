@@ -49,7 +49,33 @@ class SudokuSolver {
   }
 
   solve(puzzleString) {
-    
+    const sudokuSolver = (puzzle) => {
+      const emptyIndex = puzzle.indexOf('.');
+      if (emptyIndex === -1) {
+        return puzzle;
+      }
+  
+      const row = Math.floor(emptyIndex / 9);
+      const col = emptyIndex % 9;
+  
+      for (let value = 1; value <= 9; value++) {
+        const stringValue = value.toString();
+        if (
+          this.checkRowPlacement(puzzle, row, col, stringValue) &&
+          this.checkColPlacement(puzzle, row, col, stringValue) &&
+          this.checkRegionPlacement(puzzle, row, col, stringValue)
+        ) {
+          const newPuzzle = puzzle.slice(0, emptyIndex) + stringValue + puzzle.slice(emptyIndex + 1);
+          const solved = sudokuSolver(newPuzzle);
+          if (solved) {
+            return solved;
+          }
+        }
+      }
+      return null;
+    };
+  
+    return sudokuSolver(puzzleString) || 'Puzzle cannot be solved';
   }
 }
 
