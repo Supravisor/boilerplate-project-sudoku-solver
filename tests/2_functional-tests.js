@@ -94,4 +94,22 @@ suite('Functional Tests', () => {
       });
   });
 
+  test('POST /api/check Check a puzzle placement with single placement conflict', function(done) {
+    chai.request(server)
+      .post( '/api/check' )
+      .send( {
+        "puzzle": "1.576.984946381257728459613694517832812936745357824196473298561581673429269145378",
+        "coordinate": "A2",
+        "value": "2"
+      } )
+      .end(function(err, res){
+        assert.equal(res.status, 200);
+        assert.property(res.body, 'valid');
+        assert.isFalse(res.body.valid);
+        assert.property(res.body, 'conflict');
+        assert.include(res.body.conflict, 'column');
+        done();
+      });
+  });
+
 });
