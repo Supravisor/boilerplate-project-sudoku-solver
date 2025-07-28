@@ -131,4 +131,24 @@ suite('Functional Tests', () => {
       });
   });
 
+  test('POST /api/check Check a puzzle placement with all placement conflicts', function(done) {
+    chai.request(server)
+      .post( '/api/check' )
+      .send( {
+        "puzzle": "1.576.984946381257728459613694517832812936745357824196473298561581673429269145378",
+        "coordinate": "A2",
+        "value": "7"
+      } )
+      .end(function(err, res){
+        assert.equal(res.status, 200);
+        assert.property(res.body, 'valid');
+        assert.isFalse(res.body.valid);
+        assert.property(res.body, 'conflict');
+        assert.include(res.body.conflict, 'column');
+        assert.include(res.body.conflict, 'region');
+        assert.include(res.body.conflict, 'row');
+        done();
+      });
+  });
+
 });
