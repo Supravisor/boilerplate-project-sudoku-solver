@@ -166,4 +166,20 @@ suite('Functional Tests', () => {
       });
   });
 
+  test('POST /api/check Check a puzzle placement with invalid characters', function(done) {
+    chai.request(server)
+      .post( '/api/check' )
+      .send( {
+        "puzzle": "1.576x984946381257728459613694517832812936745357824196473298561581673429269145378",
+        "coordinate": "A2",
+        "value": "3"
+      } )
+      .end(function(err, res){
+        assert.equal(res.status, 200);
+        assert.property(res.body, 'error');
+        assert.include(res.body.error, 'Invalid characters in puzzle');
+        done();
+      });
+  });
+
 });
